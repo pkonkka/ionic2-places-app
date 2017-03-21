@@ -1,9 +1,20 @@
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { File } from 'ionic-native';
+
 import { Location } from '../models/location';
 import { Place } from '../models/place';
 
+declare var cordova: any;
+
+@Injectable()
 export class PlaceService {
+
     private places: Place[] = [];
 
+    constructor(private storage: Storage) {}
+
+    // -------------------------------------------------------------------------------------
     addPlace(
         title: string,
         description: string,
@@ -13,17 +24,60 @@ export class PlaceService {
         const place = new Place(title, description, location, imageUrl);
         this.places.push(place);
 
-        console.log('add place: ', this.places);
+        // this.storage.set('places', this.places)
+        //     .then()
+        //     .catch(
+        //         err => {
+        //             this.places.splice(this.places.indexOf(place), 1)
+        //         }
+        //     );
     }
 
+
+    // -------------------------------------------------------------------------------------
     loadPlaces() {
-        console.log('get place: ', this.places);
         return this.places.slice();
     }
 
-    removePlace(index: number) {
-        console.log('remove place: ', index);        
-        this.places.splice(index, 1);
-        console.log('remove place: ', this.places);
+    // -------------------------------------------------------------------------------------
+    fetchPlaces() {
+        // this.storage.get('places')
+        //     .then( 
+        //         (places: Place[]) => {
+        //             this.places = places != null ? places: [];
+        //         })
+        //     .catch();
     }
+
+    // -------------------------------------------------------------------------------------
+    removePlace(index: number) {
+        const place = this.places[index];
+
+        this.places.splice(index, 1);
+        this.storage.set('places', this.places)
+            .then(
+                () => {
+                    this.removeFile(place);
+                }
+            )
+            .catch(
+                err => console.log(err)
+            );
+    }
+
+    // -------------------------------------------------------------------------------------
+    private removeFile(place: Place) {
+        const currenName = place.imageUrl.replace(/^.*[\\\/]/, '');
+        File.removeFile(cordova.file.dataDirectory, currenName)
+            .then(
+                () => console.log('File removed')
+            )
+            .catch(
+                () => {
+                    console.log('Error while removing file');
+                    this.addPlace(place.title, place.description, place.location, place.imageUrl);
+                }
+            );
+    }
+
 }

@@ -13,6 +13,7 @@ export class PlacePage {
   place: Place;
   index: number;
 
+  // ---------------------------------------------------------------
   constructor(
     private navParams: NavParams,
     private viewCtrl: ViewController,
@@ -20,14 +21,15 @@ export class PlacePage {
 
     this.place = this.navParams.get('place');
     this.index = this.navParams.get('index');
-
-    console.log('Place constructor: ', this.place);
   }
 
+  // ---------------------------------------------------------------
   onLeave() {
     this.viewCtrl.dismiss();
   } 
 
+
+  // ---------------------------------------------------------------
   onDelete() {
     this.placeService.removePlace(this.index);
     this.onLeave();

@@ -9,6 +9,8 @@ import { SetLocationPage } from '../pages/set-location/set-location';
 import { PlaceService } from '../services/place';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
+import { IonicStorageModule } from '@ionic/storage'
+
 @NgModule({
   declarations: [
     MyApp,
@@ -21,7 +23,8 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
     IonicModule.forRoot(MyApp),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBhtK_VUaNbKYKBzlx-rfnlAGYitykmEr4'
-    })
+    }),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
