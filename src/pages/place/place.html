@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ place.title</ion-title>
+    <ion-title>{{ place.title }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,19 +10,19 @@
 <ion-content padding>
   <ion-grid>
     
-    <!--<ion-row>
+    <ion-row *ngIf="place.imageUrl != ''">
       <ion-col>
         <img [src]="place.imageUrl">
       </ion-col>
-    </ion-row>-->
+    </ion-row>
 
-    <!--<ion-row>
+    <ion-row>
       <ion-col text-center>
         <p>{{ place.description }}</p>
       </ion-col>
-    </ion-row>-->
+    </ion-row>
 
-    <!--<ion-row>
+    <ion-row>
       <ion-col>
         <sebm-google-map
           [latitude]="place.location.lat"
@@ -34,7 +34,7 @@
           </sebm-google-map-marker>
         </sebm-google-map>
       </ion-col>
-    </ion-row>-->
+    </ion-row>
 
     <ion-row>
       <ion-col>

@@ -20,4 +20,10 @@ export class PlaceService {
         console.log('get place: ', this.places);
         return this.places.slice();
     }
+
+    removePlace(index: number) {
+        console.log('remove place: ', index);        
+        this.places.splice(index, 1);
+        console.log('remove place: ', this.places);
+    }
 }

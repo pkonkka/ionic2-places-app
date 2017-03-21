@@ -29,7 +29,11 @@ export class AddPlacePage {
 
   onSubmit(form: NgForm) {
 
-    this.placeService.addPlace(form.value.title, form.value.description, this.location, this.imageUrl);
+    this.placeService.addPlace(
+      form.value.title, 
+      form.value.description, 
+      this.location, 
+      this.imageUrl);
     form.reset();
     
     this.location = {
@@ -38,7 +42,10 @@ export class AddPlacePage {
     };
     this.imageUrl = '';
     this.locationIsSet = false;
-    this.navCtrl.popToRoot();
+
+    console.log('submit: ', this.placeService.loadPlaces());
+
+    // this.navCtrl.pop();
   }
 
   onOpenMap() {

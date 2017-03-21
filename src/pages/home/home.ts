@@ -15,18 +15,25 @@ export class HomePage {
   places: Place[] = [];
 
   constructor(
-    public modalCtrl: ModalController, private placeService: PlaceService) {
+    public modalCtrl: ModalController, 
+    private placeService: PlaceService) {
   
   }
 
-  onViewDidLoad() {
+  ionViewWillEnter() {
     this.places = this.placeService.loadPlaces();
-    console.log(this.places);
   }
 
-  onOpenPlace(place: Place) {
-    const modal = this.modalCtrl.create(PlacePage, {place: Place});
+  onOpenPlace(place: Place, index: number) {
+    const modal = this.modalCtrl.create(PlacePage, {place: place, index: index});
     modal.present();
+
+    modal.onDidDismiss(
+      () => {
+        this.places = this.placeService.loadPlaces();    
+      }
+    )
+  
   }
 
 }
