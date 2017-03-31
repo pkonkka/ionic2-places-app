@@ -22,6 +22,7 @@ export class AddPlacePage {
   locationIsSet = false;
   imageUrl = '';
 
+  // --------------------------------------------------------------------------------
   constructor(
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
@@ -29,6 +30,8 @@ export class AddPlacePage {
     private placeService: PlaceService,
     private navCtrl: NavController) {}
 
+
+  // --------------------------------------------------------------------------------
   onSubmit(form: NgForm) {
 
     this.placeService.addPlace(
@@ -45,11 +48,9 @@ export class AddPlacePage {
     this.imageUrl = '';
     this.locationIsSet = false;
 
-    console.log('submit: ', this.placeService.loadPlaces());
-
-    // this.navCtrl.pop();
   }
 
+  // --------------------------------------------------------------------------------
   onOpenMap() {
     const modal = this.modalCtrl.create(SetLocationPage, {location: this.location, isSet: this.locationIsSet});
     modal.present();
@@ -63,6 +64,7 @@ export class AddPlacePage {
     )
   }
 
+  // --------------------------------------------------------------------------------
   onLocate() {
     const loader = this.loadingCtrl.create({
       content: 'Getting your Location...'
@@ -90,6 +92,8 @@ export class AddPlacePage {
       );
   }
 
+
+  // --------------------------------------------------------------------------------
   onTakePhoto() {
     Camera.getPicture({
       encodingType: Camera.EncodingType.JPEG,
@@ -132,5 +136,4 @@ export class AddPlacePage {
     );
   }
  
-
 }
